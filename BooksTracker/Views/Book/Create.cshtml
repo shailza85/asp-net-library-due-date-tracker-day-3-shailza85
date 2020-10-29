@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+@{
+    if (ViewBag.Success != null)
+    {
+        <p class="alert-success">@(ViewBag.Success)</p>
+    }
+    else if (ViewBag.Exception != null)
+    {
+        <ul class="alert-danger">
+            @foreach (Exception e in ViewBag.Exception.SubExceptions)
+            {
+                <li>@(e.Message)</li>
+            }
+        </ul>   
+    }
+}
+
+<form action="/Book/Create" method="get">
+
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="@(ViewBag.BookTitle)" />
+    </div>
+    <div>
+        @* value="@(ViewBag.Author) *@
+        <label for="authorID">Author</label>
+        <select id="authorID" name="authorID">
+            @foreach (Author author in ViewBag.Authors)
+            {
+                <option value="@(author.ID)">@(author.Name)</option>
+            }
+
+        </select>
+    </div>
+    <div>
+        <label for="publicationDate">Publication Date</label>
+        <input type="text" id="publicationDate" name="publicationDate" value="@(ViewBag.PublicationDate)" />
+    </div>
+   
+    <button type="submit">Go!</button>
+</form>
+<!-- // Code borowed: https://github.com/TECHCareers-by-Manpower/4.1-MVC/tree/master/MVC_4Point1 -->
